@@ -1,0 +1,7 @@
+project:
+  title: "Material Dashboard"
+  type: website
+  render:
+    - "*.qmd"
+    - "!public/"
+
