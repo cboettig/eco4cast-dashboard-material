@@ -65,7 +65,7 @@ ggobj1 <- scores |>
         ) +
    guides(x =  guide_axis(angle = 45))
 
-ggobj1
+
 
 js1 <- girafe(ggobj = ggobj1)
 
@@ -95,7 +95,7 @@ ggobj2 <- barc |>
         ) +
   ylab("Oxygen Concentration") + 
   ggtitle("Ensemble Ave Forecast for: BARC")
-ggobj2
+
 
 js2 <- girafe(ggobj = ggobj2)
 ```
@@ -121,7 +121,7 @@ ggobj3 <- barc |>
         ) +
   ylab("Water Temperature") + 
   ggtitle("Ensemble Ave Forecast for: BARC")
-ggobj3
+
 
 js3 <- girafe(ggobj = ggobj3)
 ```
