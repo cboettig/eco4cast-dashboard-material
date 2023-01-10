@@ -9,9 +9,9 @@ menu:
     weight: 1
 ---
 
-Hello Everyone
+# Aquatics
 
-```{r  include=FALSE, message=FALSE}
+```{r setup, include=FALSE, message=FALSE}
 library(tidyverse)
 #library(ggthemes)
 library(ggiraph)
@@ -21,15 +21,51 @@ library(thematic)
 library(bslib)
 library(bsicons)
 knitr::opts_chunk$set(echo=FALSE)
+
+library(neon4cast)
+library(vis4cast)
 ```
 
 
+
+
+
 ```{r}
-ggobj1 = ggplot(economics, aes(date, unemploy)) + geom_line(col="white") + geom_point(col="white") +
+ref <- as.character(Sys.Date() - 30)
+cutoff <- lubridate::as_datetime(Sys.Date()+10)
+
+aq <- 
+  neon4cast::combined_scores("aquatics", FALSE) |>
+  filter(reference_datetime == ref, 
+         datetime < cutoff, 
+         datetime > lubridate::as_datetime(ref)) 
+
+aq |>
+  group_by(model_id, datetime) |>
+  summarise(crps = mean(crps, na.rm = TRUE),
+            logs = mean(logs, na.rm = TRUE),
+    .groups="drop") |>
+  collect()
+
+
+```
+
+```{r}
+ggobj1 <- scores |>
+  group_by(model_id) |>
+  summarise(crps = mean(crps, na.rm =TRUE)) |>
+  ggplot(aes(model_id, crps)) +
+  geom_line(col="white") + geom_col(col="white", fill="white", width=0.3) +
   theme(panel.background = element_rect(fill = "#e93a76",
                                         color=NA),
         plot.background = element_rect(fill="#e93a76",color=NA),
-        axis.text=element_blank()) + xlab("") + ylab("")
+        text=element_text(color = "white"), 
+        axis.text = element_text(color = "white")
+        ) +
+   guides(x =  guide_axis(angle = 45))
+
+ggobj1
+
 js1 <- girafe(ggobj = ggobj1)
 
 ```
@@ -37,25 +73,57 @@ js1 <- girafe(ggobj = ggobj1)
 
 
 ```{r}
-ggobj2 = ggplot(economics, aes(date, unemploy)) + geom_line(col="white") + geom_point(col="white") +
+
+barc <- aq |> filter(site_id == "BARC") |> collect()
+
+ggobj2 <- barc |> 
+  filter(variable == "oxygen") |>
+  group_by(datetime, observation) |> 
+  summarise(mean = mean(mean, na.rm=TRUE), sd = mean(sd,na.rm=TRUE)) |>
+  ggplot(aes(datetime, mean)) + 
+  geom_line(col="white") + 
+  geom_ribbon(aes(x = datetime, ymin = mean-2*sd, ymax = mean+ 2*sd),
+                            alpha = 0.4, show.legend=FALSE, fill="white") +
+  geom_line(aes(datetime, mean), show.legend=FALSE, col="white")+
+  geom_point(aes(datetime, observation), col="white", size=4) +
   theme(panel.background = element_rect(fill = "#5fb663",
                                         color=NA),
         plot.background = element_rect(fill="#5fb663",color=NA),
-        axis.text=element_blank()) + xlab("") + ylab("")
+        text=element_text(color = "white"), 
+        axis.text = element_text(color = "white")
+        ) +
+  ylab("Oxygen Concentration") + 
+  ggtitle("Ensemble Ave Forecast for: BARC")
+ggobj2
+
 js2 <- girafe(ggobj = ggobj2)
 ```
 
 
+
 ```{r}
-ggobj3 = ggplot(economics, aes(date, unemploy)) + geom_line(col="white") + geom_point(col="white") +
+ggobj3 <- barc |> 
+  filter(variable == "temperature") |>
+  group_by(datetime, observation) |> 
+  summarise(mean = mean(mean, na.rm=TRUE), sd = mean(sd,na.rm=TRUE)) |>
+  ggplot(aes(datetime, mean)) + 
+  geom_line(col="white") + 
+  geom_ribbon(aes(x = datetime, ymin = mean-2*sd, ymax = mean+ 2*sd),
+                            alpha = 0.4, show.legend=FALSE, fill="white") +
+  geom_line(aes(datetime, mean), show.legend=FALSE, col="white")+
+  geom_point(aes(datetime, observation), col="white", size=4) +
   theme(panel.background = element_rect(fill = "#2d2d31",
                                         color=NA),
-        plot.background = element_rect(fill="#2d2d31",color=NA),
-        axis.text=element_blank()) + xlab("") + ylab("")
+        plot.background = element_rect(fill="#2d2d31", color=NA),
+        text=element_text(color = "white"), 
+        axis.text = element_text(color = "white")
+        ) +
+  ylab("Water Temperature") + 
+  ggtitle("Ensemble Ave Forecast for: BARC")
+ggobj3
+
 js3 <- girafe(ggobj = ggobj3)
 ```
-
-
 
 ```{r}
 card1 <- card(card_header("Chart 1"),
