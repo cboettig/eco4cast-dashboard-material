@@ -11,7 +11,7 @@ menu:
 
 # Aquatics
 
-```{r setup, include=FALSE, message=FALSE}
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 #library(ggthemes)
 library(ggiraph)
@@ -20,7 +20,7 @@ library(htmltools)
 library(thematic)
 library(bslib)
 library(bsicons)
-knitr::opts_chunk$set(echo=FALSE)
+knitr::opts_chunk$set(echo=FALSE, message = FALSE, warning=FALSE)
 
 library(neon4cast)
 library(vis4cast)

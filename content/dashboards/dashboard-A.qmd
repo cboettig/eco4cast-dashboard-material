@@ -20,7 +20,7 @@ library(htmltools)
 library(thematic)
 library(bslib)
 library(bsicons)
-knitr::opts_chunk$set(echo=FALSE)
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
 
 library(neon4cast)
 library(vis4cast)
