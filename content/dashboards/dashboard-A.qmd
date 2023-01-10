@@ -40,7 +40,7 @@ aq <-
          datetime < cutoff, 
          datetime > lubridate::as_datetime(ref)) 
 
-aq |>
+scores <- aq |>
   group_by(model_id, datetime) |>
   summarise(crps = mean(crps, na.rm = TRUE),
             logs = mean(logs, na.rm = TRUE),
