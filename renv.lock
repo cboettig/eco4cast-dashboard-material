@@ -1005,6 +1005,23 @@
       "Hash": "18e9c28c1d3ca1560ce30658b22ce104",
       "Requirements": []
     },
+    "minio": {
+      "Package": "minio",
+      "Version": "0.0.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "minio",
+      "RemoteUsername": "cboettig",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "f02db1b13b0440d4b7808bf396c4abc3b97a6f64",
+      "Hash": "a52f60b39737cb55797be6670061c4da",
+      "Requirements": [
+        "fs",
+        "glue",
+        "processx"
+      ]
+    },
     "modelr": {
       "Package": "modelr",
       "Version": "0.1.10",
@@ -1794,19 +1811,21 @@
       "Package": "vis4cast",
       "Version": "0.0.1",
       "Source": "GitHub",
+      "Remotes": "github::cboettig/minio",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "vis4cast",
       "RemoteUsername": "eco4cast",
       "RemoteRef": "HEAD",
-      "RemoteSha": "e935030348b78c5a98ad59df8121a2abe513685a",
-      "Hash": "0d1267a363dee544acbb8c7b0ed9b76c",
+      "RemoteSha": "18ae140ec83a408e749a16a36514651b61583e7d",
+      "Hash": "e246ec1dbb6bb3eca14e26b4e14811ff",
       "Requirements": [
         "dplyr",
         "forcats",
         "ggiraph",
         "ggplot2",
         "lubridate",
+        "minio",
         "patchwork",
         "tidyr"
       ]
