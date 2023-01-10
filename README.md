@@ -1,9 +1,12 @@
-# quarto-hugo-material-dashboard
+# eco4cast demo
+
+:construction: :construction: :construction: Work In Progress!
 
 Adapting material-dashboard to Quarto and Hugo
 
-[Demo site](https://quarto-hugo-material-dashboard.netlify.app/posts/dashboard-b/)
+[Demo site](https://eco4cast-material-dashboard.netlify.app/dashboards/dashboard-a/)
 
+[github repo template](https://github.com/cboettig/quarto-hugo-material-dashboard/)
 
 While quarto's built-in website support is quite flexible and feature-rich, we are still constrained in the overall look and feel of a website.
 Using quarto's [hugo format](https://quarto.org/docs/output-formats/hugo.html), however, allows us to achieve more complete control over layout and appearance.
